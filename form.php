@@ -2,6 +2,29 @@
 require 'functions.php';
 $erro = null;
 $sucesso = null;
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $texto = $_POST['texto'];
+
+    //Sanitização 
+    $texto = htmlspecialchars($texto);
+
+    //Remover espaços antes e depois da palavra
+    $texto = trim($texto);
+
+    // Garantir que tem um @
+    if(strpos($texto, '@') == false) {
+        $erro = 'O texto precisa ter um @';
+    }elseif(empty($texto)) {
+        $erro = "O campo texto é obrigatório";
+    }elseif(strlen($texto) < 5) {
+        $erro = "O número mínimo de caracteres é 5";
+    }elseif(strlen($texto) > 20) {
+        $erro = "O limite de caracteres é 20";
+    }else{
+        $sucesso = "Campo validado com sucesso!";
+    }
+}
 ?>
 
 <!DOCTYPE html>
