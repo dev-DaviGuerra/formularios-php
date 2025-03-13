@@ -1,29 +1,14 @@
 <?php
 require 'functions.php';
+
+$tecnologias = ['HTML', 'CSS', 'PHP', 'JavaScript'];
+
 $erro = null;
 $sucesso = null;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $texto = $_POST['texto'];
-
-    //Sanitização 
-    $texto = htmlspecialchars($texto);
-
-    //Remover espaços antes e depois da palavra
-    $texto = trim($texto);
-
-    // Garantir que é um email
-    if(filter_var($texto, FILTER_VALIDATE_EMAIL) == false) {
-        $erro = 'Email inválido';
-    }elseif(empty($texto)) {
-        $erro = "O campo texto é obrigatório";
-    }elseif(strlen($texto) < 5) {
-        $erro = "O número mínimo de caracteres é 5";
-    }elseif(strlen($texto) > 50) {
-        $erro = "O limite de caracteres é 50";
-    }else{
-        $sucesso = "Campo validado com sucesso!";
-    }
+    $opcao = $_POST['opcao'];
+    echo $opcao;
 }
 ?>
 
@@ -47,7 +32,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </p>
     <?php endif; ?>
     <form method="POST">
-        <input type="text" name= "texto" placeholder= "Digite o texto">
+        <select name="opcao">
+            <?php
+            foreach($tecnologias as $tec) : ?>
+            <option value="<?=$tec;?>"><?=$tec;?></option>
+            <?php endforeach; ?>
+        </select>
         <input type="submit" value="Enviar">
     </form>
     
