@@ -12,15 +12,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //Remover espaços antes e depois da palavra
     $texto = trim($texto);
 
-    // Garantir que tem um @
-    if(strpos($texto, '@') == false) {
-        $erro = 'O texto precisa ter um @';
+    // Garantir que é um email
+    if(filter_var($texto, FILTER_VALIDATE_EMAIL) == false) {
+        $erro = 'Email inválido';
     }elseif(empty($texto)) {
         $erro = "O campo texto é obrigatório";
     }elseif(strlen($texto) < 5) {
         $erro = "O número mínimo de caracteres é 5";
-    }elseif(strlen($texto) > 20) {
-        $erro = "O limite de caracteres é 20";
+    }elseif(strlen($texto) > 50) {
+        $erro = "O limite de caracteres é 50";
     }else{
         $sucesso = "Campo validado com sucesso!";
     }
