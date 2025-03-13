@@ -3,6 +3,25 @@ require 'functions.php';
 
 $tecnologias = ['HTML', 'CSS', 'PHP', 'JavaScript'];
 
+$tecnologias_banco = [
+    ['codigo' => 'html', 'nome' => 'HTML'],
+    ['codigo' => 'css', 'nome' => 'CSS'],
+    ['codigo' => 'javascript', 'nome' => 'JAVASCRIPT'],
+    ['codigo' => 'php', 'nome' => 'PHP'],
+    ['codigo' => 'html', 'nome' => 'CSS'],
+    ['codigo' => 'rn', 'nome' => 'React Native'],
+    ['codigo' => 'bootstrap', 'nome' => 'Bootstrap']
+];
+
+$tecnologias_api = [
+    'html' => 'HTML',
+    'css' => 'CSS',
+    'javascript' => 'JAVASCRIPT',
+    'php' => 'PHP',
+    'rn' => 'React Native',
+    'bootstrap' => 'Bootstrap'
+];
+
 $erro = null;
 $sucesso = null;
 
@@ -34,8 +53,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <form method="POST">
         <select name="opcao">
             <?php
-            foreach($tecnologias as $tec) : ?>
-            <option value="<?=$tec;?>"><?=$tec;?></option>
+            foreach($tecnologias_api as $codigo => $tecnologia) : ?>
+            <option value="<?=$codigo;?>"><?=$tecnologia;?></option>
             <?php endforeach; ?>
         </select>
         <input type="submit" value="Enviar">
