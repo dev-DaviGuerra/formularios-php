@@ -2,19 +2,29 @@
 require 'functions.php';
 
 $tecnologias = ['HTML', 'CSS', 'PHP', 'JavaScript'];
+$opcoesValidas = ['PHP', 'JavaScript'];
+
 
 $erro = null;
 $sucesso = null;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $opcao = $_POST['opcao'];
-    echo 'Você ganhou o curso de'.$opcao;
+    $opcoes = $_POST['opcoes'];
+    
+    if(count($opcoes) != 2){
+        $erro = 'Selecione EXATAMENTE duas tecnologias!';
+    } 
 
-    if(!in_array($opcao, $tecnologias)){
-        $erro = 'Opção Inválida';
+    foreach($opcoes as $opcao) {
+        if(!in_array($opcao, $opcoesValidas)){
+            $erro = 'A tecnologia '. $opcao .' não é válida';
+            break;
+        }
+    }
+    if(empty($erro)){
+        $sucesso = 'Deu tudo certo';
     }
 
-    //PARAMETER TEMPERING - ALTERAÇÃO/MODIFICAÇÃO DE PARAMETRO
 }
 
 ?>
@@ -39,10 +49,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </p>
     <?php endif; ?>
     <form method="POST">
-        <select name="opcao">
+        <select name="opcoes[]" multiple>
             <?php
-            foreach($tecnologias_api as $codigo => $tecnologia) : ?>
-            <option value="<?=$codigo;?>"><?=$tecnologia;?></option>
+            foreach($tecnologias as $tec) : ?>
+            <option value=" <?=$tec;?> "> <?= $tec; ?></option>
             <?php endforeach; ?>
         </select>
         <input type="submit" value="Enviar">
