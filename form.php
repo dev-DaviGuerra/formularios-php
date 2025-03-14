@@ -3,32 +3,20 @@ require 'functions.php';
 
 $tecnologias = ['HTML', 'CSS', 'PHP', 'JavaScript'];
 
-$tecnologias_banco = [
-    ['codigo' => 'html', 'nome' => 'HTML'],
-    ['codigo' => 'css', 'nome' => 'CSS'],
-    ['codigo' => 'javascript', 'nome' => 'JAVASCRIPT'],
-    ['codigo' => 'php', 'nome' => 'PHP'],
-    ['codigo' => 'html', 'nome' => 'CSS'],
-    ['codigo' => 'rn', 'nome' => 'React Native'],
-    ['codigo' => 'bootstrap', 'nome' => 'Bootstrap']
-];
-
-$tecnologias_api = [
-    'html' => 'HTML',
-    'css' => 'CSS',
-    'javascript' => 'JAVASCRIPT',
-    'php' => 'PHP',
-    'rn' => 'React Native',
-    'bootstrap' => 'Bootstrap'
-];
-
 $erro = null;
 $sucesso = null;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $opcao = $_POST['opcao'];
-    echo $opcao;
+    echo 'Você ganhou o curso de'.$opcao;
+
+    if(!in_array($opcao, $tecnologias)){
+        $erro = 'Opção Inválida';
+    }
+
+    //PARAMETER TEMPERING - ALTERAÇÃO/MODIFICAÇÃO DE PARAMETRO
 }
+
 ?>
 
 <!DOCTYPE html>
