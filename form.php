@@ -2,29 +2,21 @@
 require 'functions.php';
 
 $tecnologias = ['HTML', 'CSS', 'PHP', 'JavaScript'];
-$opcoesValidas = ['PHP', 'JavaScript'];
+
+
+
 
 
 $erro = null;
 $sucesso = null;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $opcoes = $_POST['opcoes'];
     
-    if(count($opcoes) != 2){
-        $erro = 'Selecione EXATAMENTE duas tecnologias!';
-    } 
-
-    foreach($opcoes as $opcao) {
-        if(!in_array($opcao, $opcoesValidas)){
-            $erro = 'A tecnologia '. $opcao .' não é válida';
-            break;
-        }
+    if(empty($_POST['tecnologia'])){
+        $erro = 'Selecione uma tecnologia';
     }
-    if(empty($erro)){
-        $sucesso = 'Deu tudo certo';
-    }
-
+    $tecnologia = $_POST['tecnologia'] ?? [];
+    var_dump($tecnologia);
 }
 
 ?>
@@ -43,19 +35,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <?= $erro; ?>
     </p>
     <?php endif; ?>
+
     <?php if(exibirErro($sucesso)) : ?>
     <p style="color:green">
         <?= $sucesso; ?>
     </p>
     <?php endif; ?>
     <form method="POST">
-        <select name="opcoes[]" multiple>
-            <?php
-            foreach($tecnologias as $tec) : ?>
-            <option value=" <?=$tec;?> "> <?= $tec; ?></option>
-            <?php endforeach; ?>
-        </select>
+        <?php
+        foreach($tecnologias as $tecnologia):
+        ?>
+        <label>
+            <?= $tecnologia ?>
+        </label>
+        <input type="checkbox" name="tecnologia[]" value="<?= $tecnologia ?>">
+        <hr/>
+        <?php endforeach ?>
         <input type="submit" value="Enviar">
+        
     </form>
     
 </body>
