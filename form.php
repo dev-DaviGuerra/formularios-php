@@ -1,22 +1,15 @@
 <?php
 require 'functions.php';
 
-$formas_pagamento = ['cartao', 'boleto', 'dinheiro'];
-
-
 
 
 $erro = null;
 $sucesso = null;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(empty($_POST['forma_pagamento'])){
-        $erro = 'Selecione um método de pagamento';
+    if(!empty($_POST['honeypot'])){
+        $erro = 'Ops, robô detectado';
     }
-
-    $formaPagamento = $_POST['forma_pagamento'] ?? '';
-    
- 
 }
 
 
@@ -43,16 +36,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </p>
     <?php endif; ?>
     <form method="POST">
-
-        <?php
-        foreach($formas_pagamento as $forma_pagamento) : ?>
-            <label> <?= $forma_pagamento; ?> </label>
-            <input type="radio" name="forma_pagamento[]" value="<?= $forma_pagamento; ?>">
-            <br/>
-        <?php endforeach; ?>
-
+        <input type="text" name="nome" placeholder="Digite seu nome">
+        <br/>
+        <input type="text" name="email" placeholder="Digite seu email">
+        <br/>
+        <input type="text" name="mensagem" placeholder="Digite sua mensagem">
+        <br/>
+        <input type="hidden" name="honeypot" value="">
+        <br/>
         <input type="submit" value="Enviar">
-        
     </form>
     
 </body>
