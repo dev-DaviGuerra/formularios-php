@@ -1,31 +1,24 @@
 <?php
 require 'functions.php';
 
-$tecnologias = ['HTML', 'CSS', 'PHP', 'JavaScript'];
-
+$formas_pagamento = ['cartao', 'boleto', 'dinheiro'];
 
 
 
 
 $erro = null;
 $sucesso = null;
-$tecnologiaSelecionada = [];
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    
-    if(empty($_POST['tecnologia'])){
-        $erro = 'Selecione uma tecnologia';
+    if(empty($_POST['forma_pagamento'])){
+        $erro = 'Selecione um método de pagamento';
     }
-    $tecnologiaSelecionada = $_POST['tecnologia'] ?? [];
+
+    $formaPagamento = $_POST['forma_pagamento'] ?? '';
     
-    if(count($tecnologiaSelecionada) != 1) {
-        $erro = 'Selecione apenas 1 tecnologia';
-    } elseif($tecnologiaSelecionada[0] != 'HTML'){
-        $erro = 'Você deve selecionar o HTML, ao invés de '. $tecnologiaSelecionada[0];
-    } else{
-        $sucesso = 'HTML SELECIONADO!';
-    }
+ 
 }
+
 
 ?>
 
@@ -37,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Formulário</title>
 </head>
 <body>
-    <h1> Selecione o HTML </h1>
+    <h1> Selecione a forma de pagamento </h1>
     <?php if(exibirErro($erro)) :?>
     <p style="color:red">
         <?= $erro; ?>
@@ -50,22 +43,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </p>
     <?php endif; ?>
     <form method="POST">
-        <select name="tecnologia[]" multiple>
-    <?php
-        foreach($tecnologias as $tecnologia):
-        ?>
-        <option value="<?= $tecnologia; ?>"
-        <?= in_array($tecnologia, $tecnologiaSelecionada) ? 'selected' : '';?>
-        >
-        <?= $tecnologia; ?>
 
-        </option>
-    <?php
-        endforeach; 
-    ?>
+        <?php
+        foreach($formas_pagamento as $forma_pagamento) : ?>
+            <label> <?= $forma_pagamento; ?> </label>
+            <input type="radio" name="forma_pagamento[]" value="<?= $forma_pagamento; ?>">
+            <br/>
+        <?php endforeach; ?>
 
-        </select>
-        
         <input type="submit" value="Enviar">
         
     </form>
